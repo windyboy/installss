@@ -8,7 +8,6 @@ then
 fi
 #prompt input user password
 
-read -p "Please input shadowsocks server password:" pw
 mkdir sss
 cd sss
 dir=$(pwd)
@@ -18,6 +17,7 @@ dir=$(pwd)
 wget http://windy.me/sss/shadowsocks.pp
 sed -i "s@home@$dir@" shadowsocks.pp 
 wget http://windy.me/sss/shadowsocks.json
+read -p "Please input shadowsocks server password:" pw
 sed -i "s@windyboy@$pw@" shadowsocks.json
 #wget http://windy.me/sss/shadowsocks.conf
 #install puppet repo
