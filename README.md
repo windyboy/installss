@@ -1,2 +1,2 @@
-installss
+Install Shadowsocks Server
 =========
