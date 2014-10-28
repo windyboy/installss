@@ -16,7 +16,7 @@ dir=$(pwd)
 
 #get config file
 wget http://windy.me/sss/shadowsocks.pp
-sed -i -e "s/home/$dir/g" shadowsocks.pp 
+sed -i "s@home@$dir@" shadowsocks.pp 
 wget http://windy.me/sss/shadowsocks.json
 wget http://windy.me/sss/shadowsocks.conf
 #install puppet repo
