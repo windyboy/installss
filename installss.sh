@@ -12,7 +12,7 @@ mkdir sss
 cd sss
 dir=$(pwd)
 
-
+echo "system setting"
 #get config file
 wget http://windy.me/sss/shadowsocks.pp
 sed -i "s@home@$dir@" shadowsocks.pp 
