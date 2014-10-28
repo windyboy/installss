@@ -28,5 +28,6 @@ apt upgrade -y
 apt install puppet
 
 cd ..
+
 #rm -rf sss
 
