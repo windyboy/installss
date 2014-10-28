@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $user != "root" ]
+if [ $USER != "root" ]
 then
     echo "please install with root user !"
     exit
