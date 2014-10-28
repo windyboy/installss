@@ -7,3 +7,8 @@ then
 fi
 
 wget http://windy.me/sss/shadowsocks.pp
+wget http://windy.me/sss/shadowsocks.json
+wget http://windy.me/sss/shadowsocks.conf
+
+apt update
+apt upgrade -y
