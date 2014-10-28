@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #check root user
 if [ $USER != "root" ]
