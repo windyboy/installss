@@ -22,7 +22,7 @@ file { "/etc/supervisor/conf.d/shadowsocks.conf":
     require => Package["shadowsocks"]
 }
 
-exec {"supervisorctl reload"
+exec {"supervisorctl reload":
 	command => "/usr/bin/supervisorctl reload",
 	logoutput => "true",
     require => File["/etc/supervisor/conf.d/shadowsocks.conf"],
