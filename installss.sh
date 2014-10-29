@@ -6,7 +6,7 @@ then
     exit
 fi
 #check config directory
-if [ ! -f "/tmp/sss" ]
+if [ ! -d "/tmp/sss" ]
 then 
     echo "create config directory"
     mkdir /tmp/sss
