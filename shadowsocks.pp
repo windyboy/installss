@@ -9,7 +9,7 @@ package {"shadowsocks":
 }
 service { "supervisor": 
     ensure => "running",
-    require => Package["shadowsocks"]
+    enable  => "true"
 }
 file { "/etc/shadowsocks.json":
 	ensure => "present",
@@ -19,12 +19,11 @@ file { "/etc/shadowsocks.json":
 file { "/etc/supervisor/conf.d/shadowsocks.conf":
 	ensure => "present",
 	source => "$dir/shadowsocks.conf",
-    require => Package["shadowsocks"],
-    notify => Service ["supervisor"]
+    require => Package["shadowsocks"]
 }
 
-exec {"supervisorctl update":
-	command => "/usr/bin/supervisorctl update",
+exec {"supervisorctl reload"
+	command => "/usr/bin/supervisorctl reload",
 	logoutput => "true",
     require => File["/etc/supervisor/conf.d/shadowsocks.conf"],
     notify => Service ["supervisor"]
