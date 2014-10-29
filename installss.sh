@@ -42,7 +42,7 @@ cd ..
 #rm -rf sss
 
 #get public ip address
-pia = $(wget -qO- http://ipecho.net/plain)
+pia=$(wget -qO- http://ipecho.net/plain)
 echo "public ip address:$pia"
 
 echo ""
