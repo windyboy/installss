@@ -61,7 +61,5 @@ echo "shadowsocks client configuration 'config.json':"
 cp shadowsocks.json config.json
 sed -i "s@0.0.0.0@$pia@g" config.json
 cat config.json
-
-cd .. 
-rm -rf sss
+cd
 echo "Installation is done!"
