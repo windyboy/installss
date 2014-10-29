@@ -5,10 +5,12 @@ package {"python-m2crypto": ensure => "installed" }
 package {"supervisor": ensure => "installed" }
 package {"shadowsocks":
 	ensure => "installed",
-	provider => "pip"
+	provider => "pip",
+    require => Package["supervisor"]
 }
 service {"supervisor":
-    ensure => "running"
+    ensure => "running",
+    require => Package["supervisor"]
 }
 file { "/etc/shadowsocks.json":
 	ensure => "present",
