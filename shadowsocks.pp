@@ -9,7 +9,7 @@ package {"shadowsocks":
 }
 service { "supervisor": 
     ensure => "running",
-    require Package["shadowsocks"]
+    require => Package["shadowsocks"]
 }
 file { "/etc/shadowsocks.json":
 	ensure => "present",
