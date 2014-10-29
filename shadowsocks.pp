@@ -24,8 +24,7 @@ service { "supervisor":
 }
 exec {"supervisorctl update":
 	command => "/usr/bin/supervisorctl update",
-	logoutput => "true"
-}
-exec {"supervisorctl reload":
-        command => "/usr/bin/supervisorctl reload",
+	logoutput => "true",
+    require => File["/etc/supervisor/conf.d/shadowsocks.conf"],
+    notify => Service ["shadowsocks"]
 }
