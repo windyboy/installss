@@ -2,9 +2,11 @@
 
 cd /tmp
 
-if [ ! -f "/tmp/installss.sh" ]
+if [ -f "/tmp/installss.sh" ]
 then
-    wget http://windy.me/sss/installss.sh
+    rm /tmp/installss.sh
 fi
+wget http://windy.me/sss/installss.sh
 
-sh /tmp/installss.sh
+echo "execute the command below\nsh /tmp/installss.sh"
+
