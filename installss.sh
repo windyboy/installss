@@ -51,7 +51,8 @@ apt install puppet
 
 echo "install shadowsocks server software..."
 puppet apply shadowsocks.pp
-
+supervisorctl reload
+supervisorctl status
 #get public ip address
 pia=$(wget -qO- http://ipecho.net/plain)
 echo "public ip address:$pia"
