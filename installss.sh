@@ -24,16 +24,15 @@ wget http://windy.me/sss/shadowsocks.pp
 sed -i "s@home@$dir@" shadowsocks.pp 
 wget http://windy.me/sss/shadowsocks.json
 read -p "Please input shadowsocks server password:" pw
-if [[ -z "$pw" ]]
-then 
+if [ -z "$pw" ] ; then 
     echo "password can not be null, reset to default 'windyboy'"
     pw="windyboy"
 fi
 sed -i "s@windyboy@$pw@" shadowsocks.json
 port=8765
 read -p "Please input server port:" port
-re='^[0-9]+$'
-if ! [[ $port =~ $re ]] ; then
+echo "$port" | grep -q "^?[0-9]+$"
+if  [ ! $? -eq 0 ] ;then
     echo "server port must be number, reset to default '8765'"
     port=8765
 fi
