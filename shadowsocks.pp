@@ -16,12 +16,12 @@ file { "/etc/supervisor/conf.d/shadowsocks.conf":
 	source => "$dir/shadowsocks.conf"
 }
 service { "supervisor": ensure => "running" }
-exec {"supervisorctl reload":
-	command => "supervisorctl reload",
+exec {"supervisorctl update":
+	command => "supervisorctl update",
 	path => "/usr/bin",
 	logoutput => "true"
 }
-exec {"supervisorctl status":
-        command => "supervisorctl status",
+exec {"supervisorctl reload":
+        command => "supervisorctl reload",
         path => "/usr/bin"
 }
