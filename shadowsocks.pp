@@ -7,6 +7,9 @@ package {"shadowsocks":
 	ensure => "installed",
 	provider => "pip"
 }
+service {"supervisor":
+    ensure => "running"
+}
 file { "/etc/shadowsocks.json":
 	ensure => "present",
 	source => "$dir/shadowsocks.json",
