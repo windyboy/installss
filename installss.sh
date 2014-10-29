@@ -15,7 +15,7 @@ else
     rm -rf /tmp/sss
     mkdir /tmp/sss
 fi
-cd sss
+cd /tmp/sss
 dir=$(pwd)
 
 echo "system setting"
