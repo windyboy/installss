@@ -8,8 +8,10 @@ fi
 #check config directory
 if [ ! -f "/tmp/sss" ]
 then 
+    echo "create config directory"
     mkdir /tmp/sss
 else
+    echo "remove old config directory and create new one"
     rm -rf /tmp/sss
     mkdir /tmp/sss
 fi
