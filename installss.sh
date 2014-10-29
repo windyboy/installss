@@ -5,6 +5,7 @@ then
     echo "please install with root user !"
     exit
 fi
+#check config directory
 if [ ! -f "/tmp/sss" ]
 then 
     mkdir /tmp/sss
@@ -22,6 +23,10 @@ sed -i "s@home@$dir@" shadowsocks.pp
 wget http://windy.me/sss/shadowsocks.json
 read -p "Please input shadowsocks server password:" pw
 sed -i "s@windyboy@$pw@" shadowsocks.json
+port=8765
+read -p "Please input server port:" port
+sed -i "s@8765@$port@" shadowsocks.json
+
 #wget http://windy.me/sss/shadowsocks.conf
 #install puppet repo
 #wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb
@@ -33,5 +38,11 @@ sed -i "s@windyboy@$pw@" shadowsocks.json
 
 cd ..
 
+
 #rm -rf sss
 
+#get public ip address
+pia = $(wget -qO- http://ipecho.net/plain)
+echo "public ip address:$pia"
+
+echo ""
