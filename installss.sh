@@ -5,9 +5,13 @@ then
     echo "please install with root user !"
     exit
 fi
-#prompt input user password
-
-mkdir sss
+if [ ! -f "/tmp/sss" ]
+then 
+    mkdir /tmp/sss
+else
+    rm -rf /tmp/sss
+    mkdir /tmp/sss
+fi
 cd sss
 dir=$(pwd)
 
