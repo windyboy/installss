@@ -13,15 +13,19 @@ file { "/etc/shadowsocks.json":
 } 
 file { "/etc/supervisor/conf.d/shadowsocks.conf":
 	ensure => "present",
-	source => "$dir/shadowsocks.conf"
+	source => "$dir/shadowsocks.conf",
+    require => Package["shadowsocks"],
+    notify => Service ["shadowsocks"]
 }
-service { "supervisor": ensure => "running" }
+
+service { "supervisor": 
+    ensure => "running",
+    require Package["shadowsocks"]
+}
 exec {"supervisorctl update":
-	command => "supervisorctl update",
-	path => "/usr/bin",
+	command => "/usr/bin/supervisorctl update",
 	logoutput => "true"
 }
 exec {"supervisorctl reload":
-        command => "supervisorctl reload",
-        path => "/usr/bin"
+        command => "/usr/bin/supervisorctl reload",
 }
