@@ -20,8 +20,10 @@ dir=$(pwd)
 
 echo "system setting"
 #get config file
+echo "get puppet config..."
 wget http://windy.me/sss/shadowsocks.pp
 sed -i "s@home@$dir@" shadowsocks.pp 
+echo "get shadowsocks server config..."
 wget http://windy.me/sss/shadowsocks.json
 read -p "Please input shadowsocks server password:" pw
 if [ -z "$pw" ] ; then 
@@ -37,23 +39,28 @@ if  [ ! $? -eq 0 ] ;then
     port=8765
 fi
 sed -i "s@8765@$port@" shadowsocks.json
+echo "get supervisor config..."
+wget http://windy.me/sss/shadowsocks.conf
+install puppet repo
+wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb
+dpkg -i puppetlabs-release-precise.deb
 
-#wget http://windy.me/sss/shadowsocks.conf
-#install puppet repo
-#wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb
-#dpkg -i puppetlabs-release-precise.deb
+apt update
+apt upgrade -y
+apt install puppet
 
-#apt update
-#apt upgrade -y
-#apt install puppet
-
-cd ..
-
-
-#rm -rf sss
+echo "install shadowsocks server software..."
+puppet apply shadowsocks.pp
 
 #get public ip address
 pia=$(wget -qO- http://ipecho.net/plain)
 echo "public ip address:$pia"
 
-echo ""
+echo "shadowsocks client configuration 'config.json':"
+cp shadowsocks.json config.json
+sed -i "s@0.0.0.0@$pia@g" config.json
+cat config.json
+
+cd .. 
+rm -rf sss
+echo "Installation is done!"
