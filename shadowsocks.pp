@@ -19,6 +19,7 @@ file { "/etc/shadowsocks.json":
 file { "/etc/supervisor/conf.d/shadowsocks.conf":
 	ensure => "present",
 	source => "$dir/shadowsocks.conf",
+    require => Package["supervisor"]
 }
 
 exec {"supervisorctl reload":
