@@ -2,7 +2,7 @@ $dir="home"
 
 package {"python-pip": ensure => "installed" }
 package {"python-m2crypto": ensure => "installed" }
-package {"supervisor": ensure => "installed", provider => "pip" }
+package {"supervisor": ensure => "installed" }
 package {"shadowsocks":
 	ensure => "installed",
 	provider => "pip",
