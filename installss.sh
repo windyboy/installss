@@ -41,13 +41,35 @@ fi
 sed -i "s@8765@$port@" shadowsocks.json
 echo "get supervisor config..."
 wget http://windy.me/sss/shadowsocks.conf
-install puppet repo
-wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb
-dpkg -i puppetlabs-release-precise.deb
+#install puppet repo
+if [ -f "/etc/redhat-release" ] 
+then 
+    #do centos install
 
-apt update
-apt upgrade -y
-apt install puppet
+    # get centos version
+    RELEASEVER=$(rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release))
+    if [ $RELEASEVER = 7 ]; then 
+        #centos 7
+        echo "do centos 7 repo install"
+        rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+    elif [ $RELEASEVER = 6 ]; then 
+        #centos 6
+        echo "do centos 6 repo install"
+        rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+    fi
+    yum update -y
+    yum install puppet -y
+
+else
+    #do ubuntu install
+    #?check debian ?
+    wget https://apt.puppetlabs.com/puppetlabs-release-precise.deb
+    dpkg -i puppetlabs-release-precise.deb
+
+    apt update
+    apt upgrade -y
+    apt install puppet
+fi
 
 echo "install shadowsocks server software..."
 puppet apply shadowsocks.pp
