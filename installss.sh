@@ -45,7 +45,7 @@ wget http://windy.me/sss/shadowsocks.conf
 if [ -f "/etc/redhat-release" ] 
 then 
     #do centos install
-
+    wget http://windy.me/sss/supervisord.conf
     # get centos version
     RELEASEVER=$(rpm -q --qf "%{VERSION}" $(rpm -q --whatprovides redhat-release))
     if [ $RELEASEVER = 7 ]; then 
