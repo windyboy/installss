@@ -25,7 +25,7 @@ file { "/etc/shadowsocks.json":
 }
 if $operatingsystem == "centos" {
    file {"/etc/supervisord.conf":
-        ensure => "present"
+        ensure => "present",
         source => "$dir/supervisord.conf"
    } 
 }
