@@ -8,6 +8,10 @@ package {"shadowsocks":
 	provider => "pip",
     require => Package["supervisor"]
 }
+file {"/etc/supervisor/conf.d":
+    ensure => "directory",
+    require => Package["supervisor"]
+}
 service {"supervisor":
     ensure => "running",
     require => Package["supervisor"]
