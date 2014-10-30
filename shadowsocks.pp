@@ -42,5 +42,5 @@ file { "/etc/supervisor/conf.d/shadowsocks.conf":
 exec {"supervisorctl reload":
 	command => "/usr/bin/supervisorctl reload",
 	logoutput => "true",
-    require => Service["supervisor"]
+    require => Service[$supervisor]
 }
