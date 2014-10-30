@@ -56,6 +56,7 @@ then
         #centos 6
         echo "do centos 6 repo install"
         rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+        rpm -ivh http://mirror-fpt-telecom.fpt.net/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
     fi
     yum update -y
     yum install puppet -y
