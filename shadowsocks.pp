@@ -4,15 +4,11 @@ $supervisor = $operatingsystem ? {
     default => "supervisor"
 }
 package {"python-pip": ensure => "installed" }
-package {"python-m2crypto": ensure => "installed" }
+package {"m2crypto": ensure => "installed", provider => "pip" }
 package {"supervisor": ensure => "installed" }
 package {"shadowsocks":
 	ensure => "installed",
 	provider => "pip",
-    require => Package["supervisor"]
-}
-file {"/etc/supervisor/conf.d":
-    ensure => "directory",
     require => Package["supervisor"]
 }
 service {$supervisor:
@@ -26,8 +22,16 @@ file { "/etc/shadowsocks.json":
 if $operatingsystem == "centos" {
    file {"/etc/supervisord.conf":
         ensure => "present",
-        source => "$dir/supervisord.conf"
-   } 
+        source => "$dir/supervisord.conf",
+   }
+   file {"/etc/supervisor":
+        ensure => "directory",
+        require => Package["supervisor"]
+   }
+   file {"/etc/supervisor/conf.d":
+        ensure => "directory",
+       require => Package["supervisor"]
+   }
 }
 file { "/etc/supervisor/conf.d/shadowsocks.conf":
 	ensure => "present",
