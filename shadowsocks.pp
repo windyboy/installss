@@ -1,3 +1,4 @@
+include supervisord
 $dir="home"
 $supervisor = $operatingsystem ? {
     centos => "supervisord",
@@ -19,25 +20,36 @@ file { "/etc/shadowsocks.json":
 	ensure => "present",
 	source => "$dir/shadowsocks.json",
 }
-if $operatingsystem == "centos" {
-   file {"/etc/supervisord.conf":
-        ensure => "present",
-        source => "$dir/supervisord.conf",
-   }
-   file {"/etc/supervisor":
-        ensure => "directory",
-        require => Package["supervisor"]
-   }
-   file {"/etc/supervisor/conf.d":
-        ensure => "directory",
-       require => Package["supervisor"]
-   }
+
+# use supervisor module
+class supervisord {
+      $install_pip  => true,
 }
-file { "/etc/supervisor/conf.d/shadowsocks.conf":
-	ensure => "present",
-	source => "$dir/shadowsocks.conf",
-    require => Package["supervisor"]
+
+supervisord::program { 'shadowsocks':
+    command => "ssserver -c /etc/shadowsocks.json",
+    autorestart => "yes"
 }
+
+#if $operatingsystem == "centos" {
+#   file {"/etc/supervisord.conf":
+#        ensure => "present",
+#        source => "$dir/supervisord.conf",
+#   }
+#   file {"/etc/supervisor":
+#        ensure => "directory",
+#        require => Package["supervisor"]
+#   }
+#   file {"/etc/supervisor/conf.d":
+#        ensure => "directory",
+#       require => Package["supervisor"]
+#   }
+#}
+#file { "/etc/supervisor/conf.d/shadowsocks.conf":
+#	ensure => "present",
+#	source => "$dir/shadowsocks.conf",
+#    require => Package["supervisor"]
+#}
 
 exec {"supervisorctl reload":
 	command => "/usr/bin/supervisorctl reload",

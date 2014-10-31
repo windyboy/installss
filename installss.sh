@@ -72,8 +72,10 @@ else
 
     apt update
     apt upgrade -y
-    apt install puppet
+    apt install puppet -y
 fi
+echo "install puppet supervisor module"
+puppet module install ajcrowe-supervisord
 
 echo "install shadowsocks server software..."
 puppet apply shadowsocks.pp
