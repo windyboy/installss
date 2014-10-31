@@ -52,13 +52,15 @@ then
         #centos 7
         echo "do centos 7 repo install"
         rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+        rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
+
     elif [ $RELEASEVER = 6 ]; then 
         #centos 6
         echo "do centos 6 repo install"
         rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
         rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-        sed -i "s@mirrorlist=https@mirrorlist=http@g" /etc/yum.repos.d/epel.repo 
     fi
+    sed -i "s@mirrorlist=https@mirrorlist=http@g" /etc/yum.repos.d/epel.repo
     yum update -y
     yum install puppet -y
 
