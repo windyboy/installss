@@ -28,7 +28,8 @@ class supervisord {
 
 supervisord::program { 'shadowsocks':
     command => "ssserver -c /etc/shadowsocks.json",
-    autorestart => "yes"
+    autorestart => "yes",
+    require => Class["supervisord"]
 }
 
 #if $operatingsystem == "centos" {
@@ -51,8 +52,13 @@ supervisord::program { 'shadowsocks':
 #    require => Package["supervisor"]
 #}
 
-exec {"supervisorctl reload":
-	command => "/usr/bin/supervisorctl reload",
-	logoutput => "true",
-    require => Service[$supervisor]
+#exec {"supervisorctl reload":
+#	command => "/usr/bin/supervisorctl reload",
+#	logoutput => "true",
+#    require => Service[$supervisor]
+#}
+
+supervisord::supervisorctl { 'restart_shadowsocks':
+    command => 'restart',
+    process => 'shadowsocks'
 }
