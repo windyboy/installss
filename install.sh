@@ -8,5 +8,6 @@ then
 fi
 wget http://windy.me/sss/installss.sh
 
-echo "execute the command below\nsh /tmp/installss.sh"
+echo "execute the command below"
+echo "sh /tmp/installss.sh"
 
