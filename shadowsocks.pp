@@ -6,7 +6,7 @@ $supervisor = $operatingsystem ? {
 }
 package {"python-pip": ensure => "installed" }
 package {"m2crypto": ensure => "installed", provider => "pip" }
-defined in module
+#defined in module
 #package {"supervisor": ensure => "installed" }
 package {"shadowsocks":
 	ensure => "installed",
@@ -29,7 +29,7 @@ file { "/etc/shadowsocks.json":
 
 supervisord::program { 'shadowsocks':
     command => "ssserver -c /etc/shadowsocks.json",
-    autorestart => ,"true"
+    autorestart => "true"
 }
 
 #if $operatingsystem == "centos" {
