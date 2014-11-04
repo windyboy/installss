@@ -1,17 +1,24 @@
 include supervisord
 $dir="/tmp/sss"
 if $operatingsystem == "centos" {
-    $supervisor="supervisord"
     #centos install shadowsocks with nodejs
+    $ssspath="/usr/local/node/node-default/bin/ssserver -c /etc/shadowsocks.json"
+    package {"python-pip": ensure => "installed" }
+    #package {["nodejs", "npm"]: ensure => "installed" }
     include nodejs
-    #package {"supervisor": ensure => "installed", provider => "pip" }
     package { 'shadowsocks':
-        ensure   => present,
-	provider => "npm",
+      provider => 'npm',
+      require  => Class['nodejs']
+    }
+    supervisord::program { 'shadowsocks':
+        command => "/usr/local/node/node-default/bin/ssserver -c /etc/shadowsocks.json",
+        autostart => true,
+        autorestart => "true",
+        require => File['/etc/shadowsocks.json'],
+	environment => { 'PATH' => "/usr/local/node/node-default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin" },
     }
 }
 else {
-    $supervisor="supervisor"
     package {"python-pip": ensure => "installed" }
     package {"m2crypto": ensure => "installed", provider => "pip" }
     #defined in module
@@ -20,17 +27,17 @@ else {
 	    ensure => "installed",
 	    provider => "pip",
     }
+    supervisord::program { 'shadowsocks':
+        command => "/usr/local/bin/ssserver -c /etc/shadowsocks.json",
+        autostart => true,
+        autorestart => "true",
+        require => File['/etc/shadowsocks.json'],
+        environment => { 'PATH' => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" },
+    }
 
 }
 file { "/etc/shadowsocks.json":
 	ensure => "present",
 	source => "$dir/shadowsocks.json",
-}
-
-supervisord::program { 'shadowsocks':
-	command => '/usr/bin/ssserver -c /etc/shadowsocks.json',
-	autostart => true,
-	autorestart => "true",
-    require => File['/etc/shadowsocks.json'],
 }
 
