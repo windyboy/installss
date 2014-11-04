@@ -14,7 +14,7 @@ if $operatingsystem == "centos" {
         command => "/usr/local/node/node-default/bin/ssserver -c /etc/shadowsocks.json",
         autostart => true,
         autorestart => "true",
-        require => File['/etc/shadowsocks.json'],
+        require => [Package['shadowsocks'],File['/etc/shadowsocks.json']],
 	environment => { 'PATH' => "/usr/local/node/node-default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin" },
     }
 }
@@ -31,7 +31,7 @@ else {
         command => "/usr/local/bin/ssserver -c /etc/shadowsocks.json",
         autostart => true,
         autorestart => "true",
-        require => File['/etc/shadowsocks.json'],
+        require => [Package['shadowsocks'],File['/etc/shadowsocks.json']],
         environment => { 'PATH' => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" },
     }
 
