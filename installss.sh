@@ -61,9 +61,11 @@ then
         rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
     fi
     sed -i "s@mirrorlist=https@mirrorlist=http@g" /etc/yum.repos.d/epel.repo
+    #nodejs source
     yum update -y
     yum install puppet -y
-
+    echo "install puppet nodejs module"
+    puppet module install willdurand-nodejs
 else
     #do ubuntu install
     #?check debian ?
@@ -76,6 +78,7 @@ else
 fi
 echo "install puppet supervisor module"
 puppet module install ajcrowe-supervisord
+
 
 echo "install shadowsocks server software..."
 puppet apply shadowsocks.pp
