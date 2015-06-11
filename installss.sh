@@ -33,8 +33,8 @@ fi
 sed -i "s@windyboy@$pw@" shadowsocks.json
 port=8765
 read -p "Please input server port:" port
-echo "$port" | grep -q "^?[0-9]+$"
-if  [ ! $? -eq 0 ] ;then
+
+if  !(echo $port | egrep -q "^?[0-9]+$") ;then
     echo "server port must be number, reset to default '8765'"
     port=8765
 fi
